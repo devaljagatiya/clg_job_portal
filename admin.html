@@ -1,0 +1,107 @@
+
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container">
+
+{% if not logged_in %}
+
+<div class="form-box">
+    <h2>Admin Login</h2>
+
+    <form method="POST">
+        <label>Username</label>
+        <input type="text" name="username" required>
+
+        <label>Password</label>
+        <input type="password" name="password" required>
+
+        <button class="btn" type="submit">
+            Admin Login
+        </button>
+    </form>
+</div>
+
+{% else %}
+
+<h2>Admin Dashboard</h2>
+<a href="/admin_logout" class="btn">Logout</a>
+
+<div class="form-box">
+    <h2>Add New Job / Internship</h2>
+
+    <form action="/add_job" method="POST">
+
+        <label>Job Title</label>
+        <input name="title" required>
+
+        <label>Company</label>
+        <input name="company" required>
+
+        <label>Location</label>
+        <input name="location" required>
+
+        <label>Salary / Stipend</label>
+        <input name="salary" required>
+
+        <label>Description</label>
+        <textarea name="description" required></textarea>
+
+        <label>Category</label>
+        <select name="category">
+            <option value="Job">Job</option>
+            <option value="Internship">Internship</option>
+        </select>
+
+        <button class="btn" type="submit">Add Job</button>
+    </form>
+</div>
+
+<h2>All Jobs</h2>
+
+<table>
+    <tr>
+        <th>Title</th>
+        <th>Company</th>
+        <th>Action</th>
+    </tr>
+
+    {% for job in jobs %}
+    <tr>
+        <td>{{ job.title }}</td>
+        <td>{{ job.company }}</td>
+        <td>
+            <a href="/delete_job/{{ job.id }}">Delete</a>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+
+<h2 style="margin-top:30px;">Student Applications</h2>
+
+<table>
+    <tr>
+        <th>Student Name</th>
+        <th>Email</th>
+        <th>Job</th>
+    </tr>
+
+    {% for item in applications %}
+    <tr>
+        <td>{{ item.name }}</td>
+        <td>{{ item.email }}</td>
+        <td>{{ item.title }}</td>
+    </tr>
+    {% else %}
+    <tr>
+        <td colspan="3">No applications yet.</td>
+    </tr>
+    {% endfor %}
+</table>
+
+{% endif %}
+
+</div>
+
+{% endblock %}

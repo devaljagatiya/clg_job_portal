@@ -1,0 +1,32 @@
+
+{% extends 'base.html' %}
+
+{% block content %}
+
+<section class="hero">
+    <h1>Welcome to College Job Portal</h1>
+    <p>Find Your Dream Job and Build Your Future</p>
+    <a href="/jobs" class="btn">Explore Jobs</a>
+</section>
+
+<div class="container">
+    <h2>Latest Jobs</h2>
+
+    <div class="cards">
+        {% for job in jobs %}
+        <div class="card">
+            <h3>{{ job.title }}</h3>
+            <p>Company: {{ job.company }}</p>
+            <p>Location: {{ job.location }}</p>
+            <p>Salary: {{ job.salary }}</p>
+            <a href="/apply/{{ job.id }}" class="btn">
+                Apply Now
+            </a>
+        </div>
+        {% else %}
+        <p>No jobs available.</p>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock %}

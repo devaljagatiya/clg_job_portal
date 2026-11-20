@@ -1,0 +1,38 @@
+
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container">
+    <h2>Welcome, {{ session['name'] }}</h2>
+
+    <div class="card">
+        <h3>Student Dashboard</h3>
+        <p>You can view your job applications here.</p>
+        <a href="/jobs" class="btn">Find Jobs</a>
+    </div>
+
+    <h2 style="margin-top:30px;">My Applications</h2>
+
+    <table>
+        <tr>
+            <th>Job Title</th>
+            <th>Company</th>
+            <th>Phone</th>
+        </tr>
+
+        {% for item in applications %}
+        <tr>
+            <td>{{ item.title }}</td>
+            <td>{{ item.company }}</td>
+            <td>{{ item.phone }}</td>
+        </tr>
+        {% else %}
+        <tr>
+            <td colspan="3">No applications submitted.</td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+
+{% endblock %}
